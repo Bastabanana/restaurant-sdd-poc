@@ -23,7 +23,10 @@ export default function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>roo<span style={{color:"#1a271f"}}>food</span></h1>
+        <div style={{display:"flex",alignItems:"center",gap:"12px"}}>
+          <img src="/restaurant-demo/deliveroo-logo.png" alt="Deliveroo" height="36" />
+          <h1>roo<span style={{color:"#1a271f"}}>food</span></h1>
+        </div>
         <div className="cart-badge-wrapper">
           <span className="cart-icon">🛒</span>
           {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}

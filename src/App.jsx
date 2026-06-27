@@ -11,7 +11,6 @@ export default function App() {
   const [showPayment, setShowPayment] = useState(false);
 
   function addToCart(dish) {
-    // BUG #5: always adds a new entry — should check if dish is already in cart and increment quantity
     setCart([...cart, { ...dish, quantity: 1 }]);
   }
 
@@ -19,7 +18,6 @@ export default function App() {
     setCart(cart.filter((item) => item.id === id));
   }
 
-  // BUG #6: cart.length counts duplicate entries, not unique items with quantities
   const cartCount = cart.length;
 
   return (

@@ -1,8 +1,6 @@
 export default function Cart({ cart, onRemove, onCheckout }) {
-  // BUG #1: subtotal ignores quantity — should be item.price * item.quantity
   const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
 
-  // BUG #4: label says 10% but the multiplier is 0.20 (20%)
   const tax = subtotal * 0.20;
   const total = subtotal + tax;
 
@@ -22,7 +20,6 @@ export default function Cart({ cart, onRemove, onCheckout }) {
                 <span className="cart-item-qty">x{item.quantity}</span>
               </div>
               <span className="cart-item-price">€{(item.price * item.quantity).toFixed(2)}</span>
-              {/* BUG #2: onRemove is called with no argument — should pass item.id */}
               <button className="remove-btn" onClick={() => onRemove()}>✕</button>
             </li>
           ))}

@@ -3,6 +3,7 @@ import { dishes, deliveryInfo } from "./data";
 import Menu from "./components/Menu";
 import Cart from "./components/Cart";
 import GroupPaymentFlow from "./components/GroupPaymentFlow";
+import SoloPaymentModal from "./components/SoloPaymentModal";
 import "./App.css";
 
 const GROUP_PAYMENT_TIMEOUT_MS = 30 * 60 * 1000;
@@ -21,6 +22,7 @@ export default function App() {
   const [people, setPeople] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [groupPayment, setGroupPayment] = useState(null);
+  const [soloPaymentOpen, setSoloPaymentOpen] = useState(false);
 
   function addToCart(dish, personId = null) {
     setCart((prev) => {
@@ -63,6 +65,14 @@ export default function App() {
     const hasItems = cart.some((item) => item.assignedTo === personId);
     if (hasItems) return;
     setPeople((prev) => prev.filter((p) => p.id !== personId));
+  }
+
+  function startCheckout() {
+    if (people.length === 0) {
+      setSoloPaymentOpen(true);
+      return;
+    }
+    startGroupPayment();
   }
 
   function startGroupPayment() {
@@ -128,6 +138,7 @@ export default function App() {
     setCart([]);
     setPeople([]);
     setGroupPayment(null);
+    setSoloPaymentOpen(false);
   }
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -167,7 +178,7 @@ export default function App() {
           onAssignItem={assignItem}
           onAddPerson={addPerson}
           onRemovePerson={removePerson}
-          onCheckout={startGroupPayment}
+          onCheckout={startCheckout}
         />
       </main>
       {groupPayment && (
@@ -179,6 +190,16 @@ export default function App() {
           onPersonFail={handlePersonFail}
           onTimeout={handleTimeout}
           onReset={resetOrder}
+        />
+      )}
+      {soloPaymentOpen && (
+        <SoloPaymentModal
+          cart={cart}
+          onClose={() => setSoloPaymentOpen(false)}
+          onSuccess={() => {
+            setCart([]);
+            setSoloPaymentOpen(false);
+          }}
         />
       )}
     </div>

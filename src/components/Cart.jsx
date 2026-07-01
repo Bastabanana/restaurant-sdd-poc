@@ -47,7 +47,7 @@ export default function Cart({
   }
 
   function handleCheckoutClick() {
-    if (unassignedCount > 0) {
+    if (people.length > 0 && unassignedCount > 0) {
       setCheckoutBlocked(true);
       return;
     }
@@ -112,24 +112,25 @@ export default function Cart({
                 <span className="cart-item-qty">x{item.quantity}</span>
               </div>
               <span className="cart-item-price">€{(item.price * item.quantity).toFixed(2)}</span>
-              {people.length > 0 && !groupPaymentActive ? (
-                <select
-                  className="assignee-select"
-                  value={item.assignedTo ?? ""}
-                  onChange={(e) => onAssignItem(item.cartItemId, e.target.value || null)}
-                >
-                  {item.assignedTo == null && <option value="" hidden></option>}
-                  {people.map((person) => (
-                    <option key={person.id} value={person.id}>{person.name}</option>
-                  ))}
-                </select>
-              ) : (
-                <span className={item.assignedTo == null ? "unassigned-badge" : "assigned-badge"}>
-                  {item.assignedTo == null
-                    ? "Unassigned"
-                    : people.find((p) => p.id === item.assignedTo)?.name ?? "Unassigned"}
-                </span>
-              )}
+              {people.length > 0 &&
+                (!groupPaymentActive ? (
+                  <select
+                    className="assignee-select"
+                    value={item.assignedTo ?? ""}
+                    onChange={(e) => onAssignItem(item.cartItemId, e.target.value || null)}
+                  >
+                    {item.assignedTo == null && <option value="" hidden></option>}
+                    {people.map((person) => (
+                      <option key={person.id} value={person.id}>{person.name}</option>
+                    ))}
+                  </select>
+                ) : (
+                  <span className={item.assignedTo == null ? "unassigned-badge" : "assigned-badge"}>
+                    {item.assignedTo == null
+                      ? "Unassigned"
+                      : people.find((p) => p.id === item.assignedTo)?.name ?? "Unassigned"}
+                  </span>
+                ))}
               {!groupPaymentActive && (
                 <button className="remove-btn" onClick={() => onRemove(item.cartItemId)}>✕</button>
               )}

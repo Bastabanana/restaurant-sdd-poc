@@ -3,7 +3,8 @@ import { useState } from "react";
 const CATEGORIES = ["All", "Starters", "Mains", "Desserts"];
 
 export default function Menu({ dishes, people, selectedCategory, onCategoryChange, onAddToCart }) {
-  const filteredDishes = dishes;
+  const filteredDishes =
+    selectedCategory === "All" ? dishes : dishes.filter((dish) => dish.category === selectedCategory);
   const [selectedPersonId, setSelectedPersonId] = useState("");
   const effectiveSelectedPersonId = people.some((person) => person.id === selectedPersonId)
     ? selectedPersonId

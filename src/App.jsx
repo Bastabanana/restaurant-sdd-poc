@@ -130,7 +130,7 @@ export default function App() {
     setGroupPayment(null);
   }
 
-  const cartCount = cart.length;
+  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const groupPaymentActive = groupPayment !== null;
 
   return (

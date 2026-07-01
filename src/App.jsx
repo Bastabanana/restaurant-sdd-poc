@@ -23,10 +23,18 @@ export default function App() {
   const [groupPayment, setGroupPayment] = useState(null);
 
   function addToCart(dish, personId = null) {
-    setCart((prev) => [
-      ...prev,
-      { ...dish, cartItemId: generateCartItemId(), quantity: 1, assignedTo: personId },
-    ]);
+    setCart((prev) => {
+      const existing = prev.find((item) => item.id === dish.id && item.assignedTo === personId);
+      if (existing) {
+        return prev.map((item) =>
+          item.cartItemId === existing.cartItemId ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      }
+      return [
+        ...prev,
+        { ...dish, cartItemId: generateCartItemId(), quantity: 1, assignedTo: personId },
+      ];
+    });
   }
 
   function removeFromCart(cartItemId) {

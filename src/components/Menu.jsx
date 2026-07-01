@@ -1,7 +1,13 @@
+import { useState } from "react";
+
 const CATEGORIES = ["All", "Starters", "Mains", "Desserts"];
 
-export default function Menu({ dishes, selectedCategory, onCategoryChange, onAddToCart }) {
+export default function Menu({ dishes, people, selectedCategory, onCategoryChange, onAddToCart }) {
   const filteredDishes = dishes;
+  const [selectedPersonId, setSelectedPersonId] = useState("");
+  const effectiveSelectedPersonId = people.some((person) => person.id === selectedPersonId)
+    ? selectedPersonId
+    : (people[0]?.id ?? "");
 
   return (
     <section className="menu">
@@ -19,6 +25,21 @@ export default function Menu({ dishes, selectedCategory, onCategoryChange, onAdd
         ))}
       </div>
 
+      {people.length > 0 && (
+        <label className="assignee-picker-row">
+          Add items for
+          <select
+            className="assignee-select"
+            value={effectiveSelectedPersonId}
+            onChange={(e) => setSelectedPersonId(e.target.value)}
+          >
+            {people.map((person) => (
+              <option key={person.id} value={person.id}>{person.name}</option>
+            ))}
+          </select>
+        </label>
+      )}
+
       <div className="dish-grid">
         {filteredDishes.map((dish) => (
           <div key={dish.id} className="dish-card">
@@ -28,7 +49,10 @@ export default function Menu({ dishes, selectedCategory, onCategoryChange, onAdd
               <p>{dish.description}</p>
               <div className="dish-footer">
                 <span className="dish-price">€{dish.price.toFixed(2)}</span>
-                <button className="add-btn" onClick={() => onAddToCart(dish)}>
+                <button
+                  className="add-btn"
+                  onClick={() => onAddToCart(dish, effectiveSelectedPersonId || null)}
+                >
                   Add to cart
                 </button>
               </div>

@@ -316,6 +316,161 @@ body {
   color: #e03030;
 }
 
+/* ─── People / assignment ─────────────────────────────── */
+.people-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ede9e4;
+}
+
+.people-add-row {
+  display: flex;
+  gap: 8px;
+}
+
+.people-add-input {
+  flex: 1;
+  padding: 9px 12px;
+  border: 1.5px solid #d8d4cf;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  color: #1a271f;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.people-add-input:focus {
+  border-color: #00c1b2;
+}
+
+.people-add-input:disabled {
+  background: #f4f2ef;
+  color: #a8a4a0;
+}
+
+.people-add-btn {
+  padding: 9px 16px;
+  background: #00c1b2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.people-add-btn:hover:not(:disabled) {
+  background: #00a99c;
+}
+
+.people-add-btn:disabled {
+  background: #d8d4cf;
+  color: #a8a4a0;
+  cursor: not-allowed;
+}
+
+.people-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.person-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1a271f;
+}
+
+.person-name {
+  flex: 1;
+}
+
+.person-remove-blocked-msg {
+  flex-basis: 100%;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #e03030;
+}
+
+.assignee-picker-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6b7c71;
+}
+
+.assignee-select {
+  padding: 7px 10px;
+  border: 1.5px solid #d8d4cf;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  color: #1a271f;
+  background: white;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.assignee-select:focus {
+  border-color: #00c1b2;
+}
+
+.unassigned-badge,
+.assigned-badge {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.unassigned-badge {
+  background: #ede9e4;
+  border: 1px solid #d8d4cf;
+  color: #6b7c71;
+}
+
+.assigned-badge {
+  background: #e8f8f7;
+  color: #00a99c;
+}
+
+.person-subtotals {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid #ede9e4;
+}
+
+.person-subtotal-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6b7c71;
+}
+
+.checkout-blocked-msg {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #e03030;
+  text-align: center;
+}
+
 /* ─── Cart totals ─────────────────────────────────────── */
 .cart-totals {
   border-top: 1px solid #ede9e4;
@@ -626,4 +781,97 @@ body {
   font-size: 0.8rem;
   color: #9aaba0;
   margin-bottom: 8px;
+}
+
+/* Failure (CVV 666 simulation) */
+.error-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #e03030;
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.error-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1a271f;
+}
+
+.error-meta {
+  font-size: 0.85rem;
+  color: #6b7c71;
+  margin-bottom: 8px;
+}
+
+/* Order cancelled (timeout) */
+.cancelled-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #e03030;
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.cancelled-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1a271f;
+}
+
+.cancelled-meta {
+  font-size: 0.85rem;
+  color: #6b7c71;
+  margin-bottom: 8px;
+}
+
+/* ─── Group payment banner ─────────────────────────────── */
+.group-payment-banner {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #1a271f;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(26, 39, 31, 0.25);
+  font-size: 0.8rem;
+  font-weight: 700;
+  max-width: calc(100vw - 32px);
+  overflow-x: auto;
+}
+
+.group-timer {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.group-status-list {
+  list-style: none;
+  display: flex;
+  gap: 12px;
+}
+
+.group-status-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
 }

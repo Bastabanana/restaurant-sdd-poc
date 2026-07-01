@@ -11,7 +11,7 @@ export default function App() {
   const [showPayment, setShowPayment] = useState(false);
 
   function addToCart(dish) {
-    setCart([...cart, { ...dish, quantity: 1 }]);
+    setCart((prev) => [...prev, { ...dish, quantity: 1 }]);
   }
 
   function removeFromCart(id) {
